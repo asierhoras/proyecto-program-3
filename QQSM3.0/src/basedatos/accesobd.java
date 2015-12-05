@@ -129,6 +129,34 @@ public class accesobd {
 		return existe;
 	}
 	
+	
+	public void insertarPregunta(String p, String res1, String res2, String res3, String res4, int posresc, int nivel,String img){
+		String s = "INSERT INTO pregunta2 (id_preg, pregunta, res1, res2, res3, res4, posRespC, imagen, nivel) VALUES ('"+p+"','"+res1+"','"+res2+"','"+res3+"','"+res4+"',"+posresc+",'"+img+"',"+nivel+" )"; 
+		try {
+			stmt.executeUpdate(s);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public boolean existePregunta (String p, int nivel){
+		String s = "SELECT * FROM pregunta2 WHERE pregunta='"+p+"' AND nivel="+nivel+"";
+		ResultSet rs;
+		boolean existe=false;
+		
+		try {
+			rs = stmt.executeQuery(s);
+			if(rs.next()) //Si hay datos en rs significa que ese codigo esta en la bd
+				existe = true;
+			rs.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return existe;
+	}
+	
 	/*public void insertarAsignatura(int codigo, String nombre){
 		String s = "INSERT INTO Asignatura(codigo,nombre) VALUES ("+codigo+",'"+nombre+"')";
 		try {

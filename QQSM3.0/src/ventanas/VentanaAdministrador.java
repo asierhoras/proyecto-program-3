@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,6 +41,40 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 		btnNuevaPregunta.addActionListener(this);
 		
 		btnNuevaPregunta.setBounds(391, 233, 429, 65);
+		btnNuevaPregunta.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaMostrarPreguntas np = new VentanaMostrarPreguntas();
+				np.setVisible(true);
+				eliminarVentana();
+			}
+		});
 		fondo.add(btnNuevaPregunta);
 		
 		btnUsuarios = new JButton("USUARIOS");
