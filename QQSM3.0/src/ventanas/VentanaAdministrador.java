@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class VentanaAdministrador extends JFrame implements ActionListener{
 
 	
-	private JButton btnNuevaPregunta,btnUsuarios;
+	private JButton btnNuevaPregunta,btnUsuarios,btnVolver;
 	/**
 	 * 
 	 */
@@ -82,6 +82,14 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 		btnUsuarios.setFont(new Font("Stencil", Font.PLAIN, 44));
 		btnUsuarios.setBounds(391, 396, 429, 65);
 		fondo.add(btnUsuarios);
+		
+		btnVolver = new JButton("Salir");
+		btnVolver.setFont(new Font("Yu Gothic", Font.PLAIN, 24));
+		btnVolver.setBounds(33, 652, 200, 50);
+		fondo.add(btnVolver);
+		btnVolver.addActionListener(this);
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1200,800);
 		this.setResizable(false);
@@ -119,8 +127,9 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 		
 		JButton botonPulsado = (JButton) e.getSource();
 		
-		if (botonPulsado==btnUsuarios){
-			
+		if (botonPulsado==btnVolver){
+			new Menu();
+			this.dispose();
 		}
 		
 	}
