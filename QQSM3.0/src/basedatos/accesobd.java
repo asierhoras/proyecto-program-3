@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import preguntas.Pregunta;
+import preguntas.PreguntaImagen;
 
 /**
  * @author cristian
@@ -67,30 +68,7 @@ public class accesobd {
 		}
 	}
 	
-	/*public boolean existeJugador(String u, String c){ //Lo que se pasa por parametro es el usuario del jugador, no el nombre y la contraseña
-		
-		boolean existe=false;
-		
-		String s = "SELECT * FROM jugador WHERE usuario='"+u+"'";
-		String p = "SELECT * FROM jugador WHERE contraseña='"+c+"'";
-		ResultSet rs,pq;
-		try {
-			rs = stmt.executeQuery(s);
-			pq = stmt.executeQuery(p);
-			
-			if(rs.next() && pq.next()){
-				existe=true;
-				}
-			rs.close();
-			pq.close();
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return existe;
-	}*/
+	
 	
 	public void insertarJugador(String n, String u, String c){
 		String s = "INSERT INTO jugador (id_user, nombre, usuario, contraseña, punt_max,n_par_j) VALUES ('"+n+"','"+u+"','"+c+"',0,0 )"; //aqui lo del id_user no se muy bien como hacerlo porque tiene que ser unico por jugador
@@ -103,7 +81,7 @@ public class accesobd {
 	}
 	
 	public void eliminarJugador(String n, String u, String c){
-		String s = "DELETE FROM Matricula WHERE nombre='"+n+"' AND usuario="+u+"' AND contraseña="+c;
+		String s = "DELETE FROM Matricula WHERE nombre='"+n+"' AND usuario='"+u+"' AND contraseña='"+c+"'";
 		try{
 			stmt.executeUpdate(s);
 		}catch(SQLException e){
@@ -129,6 +107,26 @@ public class accesobd {
 		return existe;
 	}
 	
+	/*	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo he metido una
+	LinkedList<Pregunta> lPreguntas = new LinkedList<Pregunta>();
+	
+	String s = "SELECT * FROM pregunta";
+	try {
+		ResultSet rs = stmt.executeQuery(s);
+		while(rs.next()){
+			
+			String enunciado = rs.getString("pregunta");
+			//lPreguntas.add(new Pregunta(enunciado));
+		}
+		rs.close();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}		
+	
+	return lPreguntas;
+}
+*/
 	
 	public void insertarPregunta(String p, String res1, String res2, String res3, String res4, int posresc, int nivel,String img){
 		String s = "INSERT INTO pregunta2 (id_preg, pregunta, res1, res2, res3, res4, posRespC, imagen, nivel) VALUES ('"+p+"','"+res1+"','"+res2+"','"+res3+"','"+res4+"',"+posresc+",'"+img+"',"+nivel+" )"; 
@@ -139,8 +137,46 @@ public class accesobd {
 		}
 	}
 	
+	
+	public Pregunta obtenerPregunta(String p){
+		Pregunta a = null;
+		
+		String s = "SELECT * FROM pregunta WHERE pregunta='"+p+"'";
+		
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next()){
+				a = new Pregunta(rs.getString("pregunta"), rs.getString("res1"),rs.getString("res2"), rs.getString("res3"),rs.getString("res4"),rs.getInt("posRespC"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return a;
+	}
+	
+	
+	public PreguntaImagen obtenerPreguntaImagen(String p){
+		PreguntaImagen a = null;
+		
+		String s = "SELECT * FROM pregunta WHERE pregunta='"+p+"'";
+		
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next()){
+				a = new PreguntaImagen(rs.getString("pregunta"), rs.getString("res1"),rs.getString("res2"), rs.getString("res3"),rs.getString("res4"),rs.getInt("posRespC"),rs.getString("imagen"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return a;
+	}
+	
 	public boolean existePregunta (String p, int nivel){
-		String s = "SELECT * FROM pregunta2 WHERE pregunta='"+p+"' AND nivel="+nivel+"";
+		String s = "SELECT * FROM pregunta WHERE pregunta='"+p+"' AND nivel="+nivel;
 		ResultSet rs;
 		boolean existe=false;
 		
@@ -157,6 +193,54 @@ public class accesobd {
 		return existe;
 	}
 	
+	
+	
+	public void eliminarPregunta(String p, int nivel){
+		String s = "DELETE FROM pregunta WHERE pregunta='"+p+"' AND nivel="+nivel;
+		try{
+			stmt.executeUpdate(s);
+		}catch(SQLException e){
+			System.out.println("no se ha podido eliminar la pregunta");
+		}
+	}
+	
+	
+	public void nuevaPartida(){
+		String s = "INSERT INTO partida () VALUES ('"+"','"+"',')"; 
+		try {
+			stmt.executeUpdate(s);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	/*public boolean existeJugador(String u, String c){ //Lo que se pasa por parametro es el usuario del jugador, no el nombre y la contraseña
+	
+	boolean existe=false;
+	
+	String s = "SELECT * FROM jugador WHERE usuario='"+u+"'";
+	String p = "SELECT * FROM jugador WHERE contraseña='"+c+"'";
+	ResultSet rs,pq;
+	try {
+		rs = stmt.executeQuery(s);
+		pq = stmt.executeQuery(p);
+		
+		if(rs.next() && pq.next()){
+			existe=true;
+			}
+		rs.close();
+		pq.close();
+	
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return existe;
+}*/
+	
+	
 	/*public void insertarAsignatura(int codigo, String nombre){
 		String s = "INSERT INTO Asignatura(codigo,nombre) VALUES ("+codigo+",'"+nombre+"')";
 		try {
@@ -167,7 +251,7 @@ public class accesobd {
 		}
 	}*/
 	
-/*	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo hemetido una
+/*	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo he metido una
 		LinkedList<Pregunta> lPreguntas = new LinkedList<Pregunta>();
 		
 		String s = "SELECT * FROM pregunta";
