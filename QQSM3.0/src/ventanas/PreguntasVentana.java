@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -22,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import menu.Perfil;
 import preguntas.PreguntaImagen;
 import preguntas.PreguntaTexto;
 import preguntas.Utilidades;

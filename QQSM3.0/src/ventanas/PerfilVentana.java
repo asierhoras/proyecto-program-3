@@ -1,6 +1,7 @@
 package ventanas;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout
+;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,9 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import clases.Jugador;
 import basedatos.accesobd;
-import menu.Perfil;
-import qqsm.GestorPerfilesFichero;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,7 +33,7 @@ public class PerfilVentana extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JTextField usuario;
 	private JTextField contraseña;
-	public static Perfil perfilJugador;
+	public static Jugador perfilJugador;
 	private JButton btnRegistrarse, btnVolver,btnIniciarSesin;
 	private JTextPane textPnombre;
 	private JLabel lblNombre;
@@ -43,7 +43,7 @@ public class PerfilVentana extends JFrame implements ActionListener{
 	
 
 	public PerfilVentana(){
-		perfilJugador = new Perfil();
+		perfilJugador = new Jugador();
 		bd = new accesobd();
 		bd.conectar();
 		
@@ -175,8 +175,8 @@ public class PerfilVentana extends JFrame implements ActionListener{
 				String c = contraseña.getText();
 				String n = textPnombre.getText();
 				bd.insertarJugador(n, u, c);
-				perfilJugador.setPassword(c);//guarda en perfiljugador la contraseña
-				perfilJugador.setUsername(u);//gardar en userName perfilJugador el user
+				perfilJugador.setContraseña(c);//guarda en perfiljugador la contraseña
+				perfilJugador.setUsuario(u);//gardar en userName perfilJugador el user
 				JOptionPane.showMessageDialog(null, "Registro completado con exito", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
 				textPnombre.setText("");
 				usuario.setText("");

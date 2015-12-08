@@ -2,18 +2,21 @@ package ventanas;
 
 import java.time.temporal.JulianFields;
 
+
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 
-import menu.Perfil;
+import clases.Jugador;
+
 
 public class ventanaMostrarUsuarios extends JFrame {
 		
 	JScrollPane scrollPaneListaJugadores;
 	JList JList;
-	private DefaultListModel<Perfil>modeloLista;
+	private DefaultListModel<Jugador>modeloLista;
 	
 	
 	public ventanaMostrarUsuarios(){

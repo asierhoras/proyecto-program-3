@@ -64,6 +64,9 @@ public class Jugador {
 		this.usuario = usuario;
 		this.contraseña = contraseña;
 	}
+	public Jugador() {
+		super();
+	}
 	
 	
 	
