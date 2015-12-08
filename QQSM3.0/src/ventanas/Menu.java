@@ -82,6 +82,21 @@ public class Menu extends JFrame{
 		lblSalir.setForeground(new Color(255, 255, 255));
 		lblSalir.setBounds(426, 540, 378, 87);
 		fondoM.add(lblSalir);
+		
+		JButton btnHallOfFame = new JButton("HALL OF FAME");
+		btnHallOfFame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				HallOfFame h= new HallOfFame();
+				h.setVisible(true);
+				cerrarVentana();
+			}
+		});
+		btnHallOfFame.setToolTipText("");
+		btnHallOfFame.setBackground(Color.DARK_GRAY);
+		btnHallOfFame.setForeground(new Color(255, 255, 0));
+		btnHallOfFame.setFont(new Font("Jokerman", Font.BOLD, 34));
+		btnHallOfFame.setBounds(816, 688, 378, 77);
+		fondoM.add(btnHallOfFame);
 
 
 		this.setSize(1200,800);

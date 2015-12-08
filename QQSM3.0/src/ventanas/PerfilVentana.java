@@ -154,6 +154,7 @@ public class PerfilVentana extends JFrame implements ActionListener{
 			String u = usuario.getText();
 			String c = contraseña.getText(); 
 			if (u.equals("******")&&c.equals("******")){
+				this.dispose();
 				new VentanaAdministrador();
 				usuario.setText("");
 				contraseña.setText("");
