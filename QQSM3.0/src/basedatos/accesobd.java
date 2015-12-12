@@ -103,6 +103,7 @@ public class accesobd {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("error");
 		}
 		return existe;
 	}
