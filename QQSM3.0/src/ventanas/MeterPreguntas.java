@@ -218,30 +218,32 @@ public class MeterPreguntas extends JFrame implements ActionListener {
 			String res3 = txres3.getText();
 			String res4 = txres4.getText();
 			int posresc = cbresc.getSelectedIndex()+1;
-			int nivel = cbnivel.getSelectedIndex()+1;
+			int nivel = cbnivel.getSelectedIndex();
 			String img = "src/imagenespreguntas/"+ tximagen.getText();
+			
 			boolean existe = bd.existePregunta(p, nivel);
-				if (existe) {
+				if (existe)  {
+				this.dispose();
 				new MeterPreguntas();
-				} else{
-					if (txpregunta.getText().equals("")
-							|| txres1.getText().equals("")
-							|| txres2.getText().equals("")
-							|| txres3.getText().equals("")
-							|| txres4.getText().equals("")
-							) {
+				} 
+					 if(txpregunta.getText().equals("")
+						|| txres1.getText().equals("")
+						|| txres2.getText().equals("")
+						|| txres3.getText().equals("")
+						|| txres4.getText().equals("")
+						){
+					  
 						JOptionPane.showMessageDialog(null,
 								"ERROR! falta por rellenar algun campo", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
-					}
-					
-					
-					bd.insertarPregunta(p, res1, res2, res3, res4, posresc, nivel, img);
+					} if (!existe){
+					bd.insertarPregunta(p, res1, res2, res3, res4, posresc, img, nivel);
 					JOptionPane.showMessageDialog(null,
 							"Pregunta introducida en la Base de Datos", "Completado",
 							JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
+					new VentanaAdministrador();
 				}
-			
 		
 		}
 

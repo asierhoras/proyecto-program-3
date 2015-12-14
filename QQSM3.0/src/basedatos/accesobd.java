@@ -130,8 +130,8 @@ public class accesobd {
 }
 */
 	
-	public void insertarPregunta(String p, String res1, String res2, String res3, String res4, int posresc, int nivel,String img){
-		String s = "INSERT INTO pregunta2 (id_preg, pregunta, res1, res2, res3, res4, posRespC, imagen, nivel) VALUES ('"+p+"','"+res1+"','"+res2+"','"+res3+"','"+res4+"',"+posresc+",'"+img+"',"+nivel+" )"; 
+	public void insertarPregunta(String p, String res1, String res2, String res3, String res4, int posresc,String img, int nivel){
+		String s = "INSERT INTO pregunta ( pregunta, res1, res2, res3, res4, posRespC, imagen, nivel) VALUES ('"+p+"','"+res1+"','"+res2+"','"+res3+"','"+res4+"',"+posresc+",'"+img+"',"+nivel+" )"; 
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e1) {

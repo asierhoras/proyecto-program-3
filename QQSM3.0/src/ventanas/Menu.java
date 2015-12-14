@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class Menu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-
+public JLabel lblbienvenido,lblbienvenido2;
 
 	public Menu (){
 
@@ -97,6 +97,21 @@ public class Menu extends JFrame{
 		btnHallOfFame.setFont(new Font("Jokerman", Font.BOLD, 34));
 		btnHallOfFame.setBounds(816, 688, 378, 77);
 		fondoM.add(btnHallOfFame);
+		
+		lblbienvenido = new JLabel("Bienvenido");
+		lblbienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblbienvenido.setForeground(Color.WHITE);
+		lblbienvenido.setFont(new Font("Maiandra GD", Font.BOLD, 55));
+		lblbienvenido.setBounds(264, 39, 338, 143);
+		lblbienvenido.setVisible(false);
+		fondoM.add(lblbienvenido);
+		
+		lblbienvenido2 = new JLabel("");
+		lblbienvenido2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblbienvenido2.setForeground(Color.WHITE);
+		lblbienvenido2.setFont(new Font("Maiandra GD", Font.BOLD, 60));
+		lblbienvenido2.setBounds(616, 39, 338, 143);
+		fondoM.add(lblbienvenido2);
 
 
 		this.setSize(1200,800);

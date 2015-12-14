@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -77,6 +79,29 @@ public class PerfilVentana extends JFrame implements ActionListener{
 		contraseña = new JPasswordField();
 		contraseña.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contraseña.setBounds(519, 304, 249, 32);
+		KeyListener keylistener= new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					btnIniciarSesin.doClick();
+				}
+			}
+		};
+		contraseña.addKeyListener(keylistener);
 		FondoPerfil.add(contraseña);
 
 		btnIniciarSesin = new JButton("Iniciar Sesi\u00F3n");
@@ -86,6 +111,7 @@ public class PerfilVentana extends JFrame implements ActionListener{
 		
 		btnIniciarSesin.setFont(new Font("Yu Gothic Light", Font.PLAIN, 23));
 		btnIniciarSesin.setBounds(879, 357, 276, 67);
+		btnIniciarSesin.requestFocus();
 		FondoPerfil.add(btnIniciarSesin);
 		
 		lblNombre = new JLabel("NOMBRE");
@@ -163,7 +189,10 @@ public class PerfilVentana extends JFrame implements ActionListener{
 				if (existe){
 					usuario.setText("");
 					contraseña.setText("");
-					new Menu();
+					this.dispose();
+					Menu a=new Menu();
+					a.lblbienvenido2.setText(u);
+					a.lblbienvenido.setVisible(true);
 				} else
 					ponerVisible();
 			}
