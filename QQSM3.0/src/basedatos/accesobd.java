@@ -14,6 +14,7 @@ import preguntas.PreguntaImagen;
  * @author cristian
  * Clase con la que se genera la conexion con la base de datos y la desconexion.
  */
+//prueba
 public class accesobd {
 	
 	private Connection connection;
