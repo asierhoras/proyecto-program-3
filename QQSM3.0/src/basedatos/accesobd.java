@@ -14,7 +14,7 @@ import preguntas.PreguntaImagen;
  * @author cristian
  * Clase con la que se genera la conexion con la base de datos y la desconexion.
  */
-//prueba
+
 public class accesobd {
 	
 	private Connection connection;
@@ -72,7 +72,7 @@ public class accesobd {
 	
 	
 	public void insertarJugador(String n, String u, String c){
-		String s = "INSERT INTO jugador (id_user, nombre, usuario, contraseña, punt_max,n_par_j) VALUES ('"+n+"','"+u+"','"+c+"',0,0 )"; //aqui lo del id_user no se muy bien como hacerlo porque tiene que ser unico por jugador
+		String s = "INSERT INTO jugador (nombre, usuario, contraseña, punt_max,n_par_j) VALUES ('"+n+"','"+u+"','"+c+"',0,0 )";
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e1) {
