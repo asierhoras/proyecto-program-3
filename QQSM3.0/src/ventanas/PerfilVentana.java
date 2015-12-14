@@ -193,6 +193,15 @@ public class PerfilVentana extends JFrame implements ActionListener{
 					Menu a=new Menu();
 					a.lblbienvenido2.setText(u);
 					a.lblbienvenido.setVisible(true);
+					a.lblNewLabel_1.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							PerfilUsuario pu = new PerfilUsuario();
+							pu.setVisible(true);
+							a.cerrarVentana();
+							
+						}
+					});
 				} else
 					ponerVisible();
 			}

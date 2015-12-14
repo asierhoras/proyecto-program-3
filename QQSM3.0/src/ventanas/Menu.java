@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class Menu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-public JLabel lblbienvenido,lblbienvenido2;
+public JLabel lblbienvenido,lblbienvenido2,lblNewLabel_1;
 
 	public Menu (){
 
@@ -54,7 +54,7 @@ public JLabel lblbienvenido,lblbienvenido2;
 		lblNewLabel.setBounds(444, 215, 338, 105);
 		fondoM.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("PERFIL");
+		lblNewLabel_1 = new JLabel("PERFIL");
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
