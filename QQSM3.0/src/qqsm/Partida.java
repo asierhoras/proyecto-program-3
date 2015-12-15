@@ -31,7 +31,7 @@ public class Partida {
 		// Ahora leeremos todas las preguntas de los 3 bloques de dificultad al
 		// programa
 		System.out.println("Leyendo preguntas fáciles...");
-		Configuracion.LeerFicheroPreguntasF();
+		Configuracion.LeerPreguntasFdeBD();
 		System.out.println("Leyendo preguntas medias...");
 		Configuracion.LeerFicheroPreguntasM();
 		System.out.println("Leyendo preguntas difíciles...");

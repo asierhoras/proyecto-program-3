@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
+import basedatos.accesobd;
 import comodines.*;
 import preguntas.Pregunta;
 import preguntas.PreguntaTexto;
@@ -20,6 +22,7 @@ public class Configuracion {
 	private static HashMap<Integer, Pregunta> facil = new HashMap<Integer, Pregunta>();
 	private static HashMap<Integer, Pregunta> medio = new HashMap<Integer, Pregunta>();
 	private static HashMap<Integer, Pregunta> dificil = new HashMap<Integer, Pregunta>();
+	private static LinkedList<Pregunta> facil2= new LinkedList<>();
 	public static Pregunta[] preguntasPartida;
 	public static int nPregunta;
 	public static Comodin []comodines;
@@ -87,7 +90,7 @@ public class Configuracion {
 	/**Método que le translada al programa las preguntas que se encuentran en el fichero de preguntas fáciles
 	 * 
 	 */
-	public static  void LeerFicheroPreguntasF() {
+	/*public static  void LeerFicheroPreguntasF() {
 		// TODO Auto-generated method stub
 		FileInputStream fis;
 		try {
@@ -109,6 +112,13 @@ public class Configuracion {
 			System.out.println("ERROR");
 		}
 
+	}*/
+	
+	
+	public static void LeerPreguntasFdeBD(){
+		accesobd a= new accesobd();
+		a.conectar();
+		facil2= a.obtenerPreguntas();
 	}
 
 
@@ -174,13 +184,25 @@ public class Configuracion {
 	 */
 	public static void elegirPreguntas() {
 		preguntasPartida = new Pregunta[15];
-		for (int i = 0; i < 5; i++) {
+		/*for (int i = 0; i < 5; i++) {
 			Random R = new Random();
 			int s = R.nextInt(facil.size()-1);
 			Pregunta j = facil.get(s+1);
 			while (preguntaExistente(j, preguntasPartida)) {
 				s = R.nextInt(facil.size() + 1);
 				j = facil.get(s);
+			}
+			preguntasPartida[i] = j;
+		}*/
+		
+		
+		for (int i = 0; i < 5; i++) {
+			Random R = new Random();
+			int s = R.nextInt(facil2.size()-1);
+			Pregunta j = facil2.get(s+1);
+			while (preguntaExistente(j, preguntasPartida)) {
+				s = R.nextInt(facil2.size() + 1);
+				j = facil2.get(s);
 			}
 			preguntasPartida[i] = j;
 		}
@@ -326,9 +348,10 @@ public class Configuracion {
 	// Main para probar la clase
 	public static void main(String[] args) {
 
-		LeerFicheroPreguntasF();
-		System.out.println(facil.get(1));
-		String respuesta = facil.get(1).getRespuestas()[facil.get(1)
+		//LeerFicheroPreguntasF();
+		LeerPreguntasFdeBD();
+		System.out.println(facil2.get(0));
+		String respuesta = facil2.get(0).getRespuestas()[facil2.get(0)
 		                                                .getPosRespC() - 1];
 		System.out.println("Respuesta correcta es:" + respuesta);
 	}

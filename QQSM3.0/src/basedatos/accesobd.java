@@ -253,7 +253,7 @@ public class accesobd {
 		}
 	}*/
 	
-/*	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo he metido una
+	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo he metido una
 		LinkedList<Pregunta> lPreguntas = new LinkedList<Pregunta>();
 		
 		String s = "SELECT * FROM pregunta";
@@ -261,8 +261,21 @@ public class accesobd {
 			ResultSet rs = stmt.executeQuery(s);
 			while(rs.next()){
 				
-				String enunciado = rs.getString("pregunta");
-				//lPreguntas.add(new Pregunta(enunciado));
+				String pregunta = rs.getString("pregunta");
+				String res1 = rs.getString("res1");
+				String res2 = rs.getString("res2");
+				String res3 = rs.getString("res3");
+				String res4 = rs.getString("res4");
+				int posRespC = rs.getInt("posRespC");
+				String img =rs.getString("imagen");
+				if(img=="src/imagenespreguntas/"){
+					lPreguntas.add(new Pregunta(pregunta,res1,res2,res3,res4,posRespC));
+				}else{
+					lPreguntas.add(new PreguntaImagen(pregunta,res1,res2,res3,res4,posRespC,img));
+				}
+				
+				
+				
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -272,7 +285,7 @@ public class accesobd {
 		
 		return lPreguntas;
 	}
-	*/
+	
 	/*public void insertarMatricula(String dni, int codigo){
 		String s = "INSERT INTO Matricula(dni,codigo) VALUES('"+dni+"',"+codigo+")";
 		try {
@@ -462,7 +475,13 @@ public class accesobd {
 		}
 	}*/
 
-	
-	
+	/*public static void main(String[] args) {
+		
+		accesobd o = new accesobd();
+		o.conectar();
+		LinkedList<Pregunta> lPreguntas= o.obtenerPreguntas();
+		System.out.println(lPreguntas.getFirst().getRes1());
+	}
+	*/
 
 }

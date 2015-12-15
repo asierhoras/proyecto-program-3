@@ -502,7 +502,7 @@ public class PreguntasVentana extends JFrame implements Runnable{
 
 	private void cargarConfiguracionJuego() {
 		Configuracion.init();
-		Configuracion.LeerFicheroPreguntasF();
+		Configuracion.LeerPreguntasFdeBD();
 		Configuracion.LeerFicheroPreguntasM();
 		Configuracion.LeerFicheroPreguntasD();
 		Configuracion.elegirPreguntas();
