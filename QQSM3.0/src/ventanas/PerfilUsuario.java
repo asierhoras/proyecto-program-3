@@ -90,6 +90,13 @@ public class PerfilUsuario extends JFrame implements ActionListener{
 		btnVolver.setFont(new Font("Yu Gothic", Font.PLAIN, 24));
 		btnVolver.setBounds(33, 652, 200, 50);
 		fondo.add(btnVolver);
+		
+		JButton btnCerrarSesion = new JButton("CERRAR SESION");
+		btnCerrarSesion.setFont(new Font("Kristen ITC", Font.PLAIN, 35));
+		btnCerrarSesion.setBackground(Color.BLACK);
+		btnCerrarSesion.setForeground(Color.WHITE);
+		btnCerrarSesion.setBounds(804, 652, 378, 74);
+		fondo.add(btnCerrarSesion);
 		btnVolver.addActionListener(this);
 		
 		
@@ -135,9 +142,6 @@ JButton botonPulsado = (JButton) e.getSource();
 			this.dispose();
 		}
 	}
-
-
-
 }
 
 /**

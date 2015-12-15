@@ -207,6 +207,7 @@ public class MeterPreguntas extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 
 		JButton botonPulsado = (JButton) e.getSource();
+		boolean vacio=false;
 
 		if (botonPulsado == btnVolver) {
 			new VentanaAdministrador();
@@ -232,11 +233,11 @@ public class MeterPreguntas extends JFrame implements ActionListener {
 						|| txres3.getText().equals("")
 						|| txres4.getText().equals("")
 						){
-					  
+						vacio=true;
 						JOptionPane.showMessageDialog(null,
 								"ERROR! falta por rellenar algun campo", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
-					} if (!existe){
+					} if (!existe && !vacio){
 					bd.insertarPregunta(p, res1, res2, res3, res4, posresc, img, nivel);
 					JOptionPane.showMessageDialog(null,
 							"Pregunta introducida en la Base de Datos", "Completado",
