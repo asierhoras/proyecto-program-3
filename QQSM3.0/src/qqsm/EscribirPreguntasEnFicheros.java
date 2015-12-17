@@ -138,7 +138,7 @@ public class EscribirPreguntasEnFicheros  {
 					"¿Cómo se representa el número 3045 en números romanos?",
 					"MMMLX", "MMMXLV", "MMCCLXV", "MMDLXV", 2));
 			oss.writeObject(new PreguntaTexto(
-					" El gentilicio de la provincia de Huesca es:",
+					"El gentilicio de la provincia de Huesca es:",
 					"Huescano", "Huescense", "Huescaño", "Oscense", 4));
 			oss.writeObject(new PreguntaTexto("Capital de Perú.",
 					"Tegucigalpa", "Lima", "Bogotá", "Caracas", 2));

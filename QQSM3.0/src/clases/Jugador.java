@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.Date;
+
 // Prueba cambio
 
 // Prueba cambio Cristian
@@ -11,6 +13,14 @@ public class Jugador {
 	private String contraseña;
 	private int punt_max;
 	private int n_par_j;
+	private Date fReg;
+	
+	public Date getfReg() {
+		return fReg;
+	}
+	public void setfReg(Date fReg) {
+		this.fReg = fReg;
+	}
 	public int getId_user() {
 		return id_user;
 	}
@@ -47,6 +57,19 @@ public class Jugador {
 	public void setN_par_j(int n_par_j) {
 		this.n_par_j = n_par_j;
 	}
+	
+	public Jugador(int id_user, String nombre, String usuario,
+			String contraseña, int punt_max, int n_par_j, Date fReg) {
+		super();
+		this.id_user = id_user;
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.contraseña = contraseña;
+		this.punt_max = punt_max;
+		this.n_par_j = n_par_j;
+		this.fReg = fReg;
+	}
+	
 	public Jugador(int id_user, String nombre, String usuario,
 			String contraseña, int punt_max, int n_par_j) {
 		super();
