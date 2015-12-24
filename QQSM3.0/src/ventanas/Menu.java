@@ -58,9 +58,16 @@ public JLabel lblbienvenido,lblbienvenido2,lblNewLabel_1;
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				PerfilVentana pv = new PerfilVentana();
-				pv.setVisible(true);
-				cerrarVentana();
+				if (PerfilVentana.j==null) {
+					PerfilVentana pv = new PerfilVentana();
+					pv.setVisible(true);
+					cerrarVentana();
+				}else{
+					PerfilUsuario pu = new PerfilUsuario();
+					pu.setVisible(true);
+					cerrarVentana();
+				}
+				
 			}
 		});
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,6 +114,11 @@ public JLabel lblbienvenido,lblbienvenido2,lblNewLabel_1;
 		fondoM.add(lblbienvenido);
 		
 		lblbienvenido2 = new JLabel("");
+		if (PerfilVentana.j==null) {
+			lblbienvenido2.setVisible(false);
+		}else{
+			lblbienvenido2.setText(PerfilVentana.j.getUsuario());
+		}
 		lblbienvenido2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblbienvenido2.setForeground(Color.WHITE);
 		lblbienvenido2.setFont(new Font("Maiandra GD", Font.BOLD, 60));

@@ -7,25 +7,19 @@ import java.util.Date;
 // Prueba cambio Cristian
 
 public class Jugador {
-	private int id_user;
+	
 	private String nombre;
 	private String usuario;
 	private String contraseña;
 	private int punt_max;
 	private int n_par_j;
-	private Date fReg;
+	private String fReg;
 	
-	public Date getfReg() {
+	public String getfReg() {
 		return fReg;
 	}
-	public void setfReg(Date fReg) {
+	public void setfReg(String fReg) {
 		this.fReg = fReg;
-	}
-	public int getId_user() {
-		return id_user;
-	}
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
 	}
 	public String getNombre() {
 		return nombre;
@@ -58,10 +52,9 @@ public class Jugador {
 		this.n_par_j = n_par_j;
 	}
 	
-	public Jugador(int id_user, String nombre, String usuario,
-			String contraseña, int punt_max, int n_par_j, Date fReg) {
+	public Jugador(String nombre, String usuario,
+			String contraseña, int punt_max, int n_par_j, String fReg) {
 		super();
-		this.id_user = id_user;
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.contraseña = contraseña;
@@ -70,10 +63,9 @@ public class Jugador {
 		this.fReg = fReg;
 	}
 	
-	public Jugador(int id_user, String nombre, String usuario,
+	public Jugador(String nombre, String usuario,
 			String contraseña, int punt_max, int n_par_j) {
 		super();
-		this.id_user = id_user;
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.contraseña = contraseña;

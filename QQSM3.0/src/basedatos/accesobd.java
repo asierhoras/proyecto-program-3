@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import clases.Jugador;
 import preguntas.Pregunta;
 import preguntas.PreguntaImagen;
 
@@ -44,7 +45,6 @@ public class accesobd {
 			cerrarSentencia();
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -54,7 +54,6 @@ public class accesobd {
 		try {
 			stmt = connection.createStatement();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -64,7 +63,6 @@ public class accesobd {
 		try {
 			stmt.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +74,6 @@ public class accesobd {
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -90,8 +87,8 @@ public class accesobd {
 		}
 	}
 	
-	public boolean existeJugador (String nom, String cont){
-		String s = "SELECT * FROM jugador WHERE nombre='"+nom+"' AND contraseña='"+cont+"'";
+	public boolean existeJugador (String u, String cont){
+		String s = "SELECT * FROM jugador WHERE usuario='"+u+"' AND contraseña='"+cont+"'";
 		ResultSet rs;
 		boolean existe=false;
 		
@@ -102,12 +99,58 @@ public class accesobd {
 			rs.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("error");
 		}
 		return existe;
 	}
+	
+	public Jugador obtenerJugador(String u,String c){
+		Jugador a = null;
+		
+		String s = "SELECT * FROM jugador WHERE usuario='"+u+"' AND contraseña='"+c+"'";
+		
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next()){
+				a = new Jugador(rs.getString("nombre"), rs.getString("usuario"),rs.getString("contraseña"), rs.getInt("punt_Max"),rs.getInt("n_par_j"),rs.getString("fReg"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
+	
+	
+	public int obteneridJugador(String u,String c){
+		int a = 0;
+		
+		String s = "SELECT id_user FROM jugador WHERE usuario='"+u+"' AND contraseña='"+c+"'";
+		
+		try {
+			ResultSet rs = stmt.executeQuery(s);
+			if(rs.next()){
+				a = new Integer( rs.getInt("id_user"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
+	
+	//ESTE METODO FALTA POR HACER
+	public void insertarPartida(String n, String u, String c){
+		String s = "INSERT INTO jugador (nombre, usuario, contraseña, punt_max,n_par_j) VALUES ('"+n+"','"+u+"','"+c+"',0,0 )";
+		try {
+			stmt.executeUpdate(s);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
 	
 	/*	public LinkedList<Pregunta> obtenerPreguntas(){ //espero que esto funcione, pruebalo que debería de mostrar las preguntas que hay en la bd aunque solo he metido una
 	LinkedList<Pregunta> lPreguntas = new LinkedList<Pregunta>();
@@ -122,7 +165,6 @@ public class accesobd {
 		}
 		rs.close();
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}		
 	
@@ -152,7 +194,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return a;
@@ -171,7 +212,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return a;
@@ -189,7 +229,6 @@ public class accesobd {
 			rs.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return existe;
@@ -235,7 +274,6 @@ public class accesobd {
 		pq.close();
 	
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
@@ -248,7 +286,6 @@ public class accesobd {
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}*/
@@ -279,7 +316,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		
@@ -290,8 +326,7 @@ public class accesobd {
 		String s = "INSERT INTO Matricula(dni,codigo) VALUES('"+dni+"',"+codigo+")";
 		try {
 			stmt.executeUpdate(s);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 	}
@@ -306,7 +341,6 @@ public class accesobd {
 				resul=true;
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -314,7 +348,7 @@ public class accesobd {
 		return resul;
 	}*/
 	
-	//TODO una clase jugador.
+
 	/*public LinkedList<Jugador> obtenerUsuarios(){//clase jugador no creada, tengo creada una clase con el nombre de perfil en el proyecto, tiene como parametros user y pass. Podriamos incluir ahi los datos que nos falten respecto a la bd o crear otra clase, como prefieras
 		LinkedList<Jugador> lUsuarios = new LinkedList<Jugador>();
 		
@@ -328,7 +362,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -340,7 +373,6 @@ public class accesobd {
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -357,7 +389,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return a;
@@ -373,7 +404,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -392,7 +422,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -408,7 +437,6 @@ public class accesobd {
 				existe=true;
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				
@@ -422,7 +450,6 @@ public class accesobd {
 		try {
 			stmt.executeUpdate(s);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -438,7 +465,6 @@ public class accesobd {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -454,7 +480,6 @@ public class accesobd {
 			rs = stmt.executeQuery(s);
 			l = new Libro(rs.getString("codigo"),rs.getString("nombre"),rs.getFloat("precio"),rs.getString("ruta"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -469,7 +494,6 @@ public class accesobd {
 			try {
 				stmt.executeUpdate(s);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -39,72 +39,86 @@ import java.io.IOException;
 
 import javax.swing.SwingConstants;
 
-public class PerfilUsuario extends JFrame implements ActionListener{
+import clases.Jugador;
+
+public class PerfilUsuario extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JButton btnVolver, btnCerrarSesion;
+	public static Jugador jugador;
 
-	private JButton btnVolver;
-
-
-	public PerfilUsuario(){
+	public PerfilUsuario() {
 
 		Fondoper fondo = new Fondoper();
 		getContentPane().add(fondo, BorderLayout.CENTER);
 
 		fondo.setLayout(null);
-		
-		JLabel lblNombre = new JLabel("NOMBRE");
+
+		JLabel lblNombre = new JLabel();
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre.setFont(new Font("Caladea", Font.PLAIN, 55));
 		lblNombre.setForeground(Color.WHITE);
 		lblNombre.setBounds(445, 86, 348, 117);
 		fondo.add(lblNombre);
-		
-		JLabel lblUsuario = new JLabel("Usuario");
+
+		JLabel lblUsuario = new JLabel();
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setFont(new Font("Caladea", Font.PLAIN, 55));
 		lblUsuario.setBounds(445, 216, 348, 117);
 		fondo.add(lblUsuario);
-		
-		JLabel lblRecord = new JLabel("record");
+
+		JLabel lblRecord = new JLabel();
 		lblRecord.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRecord.setForeground(Color.WHITE);
 		lblRecord.setFont(new Font("Caladea", Font.PLAIN, 55));
 		lblRecord.setBounds(445, 334, 348, 117);
 		fondo.add(lblRecord);
-		
-		JLabel lblMiembroDesde = new JLabel("miembro desde");
+
+		JLabel lblMiembroDesde = new JLabel();
 		lblMiembroDesde.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMiembroDesde.setForeground(Color.WHITE);
 		lblMiembroDesde.setFont(new Font("Caladea", Font.PLAIN, 55));
 		lblMiembroDesde.setBounds(445, 466, 368, 117);
 		fondo.add(lblMiembroDesde);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		btnVolver = new JButton("Salir");
 		btnVolver.setFont(new Font("Yu Gothic", Font.PLAIN, 24));
 		btnVolver.setBounds(33, 652, 200, 50);
 		fondo.add(btnVolver);
-		
-		JButton btnCerrarSesion = new JButton("CERRAR SESION");
+
+		btnCerrarSesion = new JButton("CERRAR SESION");
 		btnCerrarSesion.setFont(new Font("Kristen ITC", Font.PLAIN, 35));
 		btnCerrarSesion.setBackground(Color.BLACK);
 		btnCerrarSesion.setForeground(Color.WHITE);
 		btnCerrarSesion.setBounds(804, 652, 378, 74);
 		fondo.add(btnCerrarSesion);
 		btnVolver.addActionListener(this);
-		
-		
-		
-		
-		this.setSize(1200,800);
-		this.setResizable(false);
+		btnCerrarSesion.addActionListener(this);
 
+		if (PerfilVentana.j == null) {
+			lblNombre.setText("NOMBRE");
+			lblUsuario.setText("USUARIO");
+			lblRecord.setText("RECORD");
+			lblMiembroDesde.setText("MIEMBRO DESDE");
+		} else {
+			jugador = PerfilVentana.bd.obtenerJugador(
+					PerfilVentana.j.getUsuario(),
+					PerfilVentana.j.getContraseña());
+			lblNombre.setText(jugador.getNombre());
+			lblUsuario.setText(jugador.getUsuario());
+			String record=Integer.toString(jugador.getPunt_max());
+			lblRecord.setText(record);
+			lblMiembroDesde.setText(jugador.getfReg());
+		}
+
+		this.setSize(1200, 800);
+		this.setResizable(false);
 
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		// Se obtienen las dimensiones en pixels de la ventana.
@@ -113,31 +127,28 @@ public class PerfilUsuario extends JFrame implements ActionListener{
 		setLocation((pantalla.width - ventana.width) / 2,
 				(pantalla.height - ventana.height) / 2);
 
-
 		this.setVisible(true);
 	}
-
-
 
 	protected void eliminarVentana() {
 		this.dispose();
 	}
 
-
-
-	public static void main(String[] args) {    
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		PerfilUsuario f= new PerfilUsuario();
+		PerfilUsuario f = new PerfilUsuario();
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-JButton botonPulsado = (JButton) e.getSource();
-		
-		if (botonPulsado == btnVolver){
+		JButton botonPulsado = (JButton) e.getSource();
+
+		if (botonPulsado == btnVolver) {
+			new Menu();
+			this.dispose();
+		}else if(botonPulsado==btnCerrarSesion){
+			PerfilVentana.j=null;
 			new Menu();
 			this.dispose();
 		}
@@ -145,21 +156,17 @@ JButton botonPulsado = (JButton) e.getSource();
 }
 
 /**
- * @author Asier
- *clase para ponerle un fondo a la ventana
+ * @author Asier clase para ponerle un fondo a la ventana
  */
 class Fondoper extends JPanel {
 
-
-
-	public void paintComponent (Graphics g){
-		Dimension tamaño= getSize();
-		ImageIcon imagenFondo= new ImageIcon (new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage());
-		g.drawImage(imagenFondo.getImage(), 0, 0, tamaño.width, tamaño.height, null);
+	public void paintComponent(Graphics g) {
+		Dimension tamaño = getSize();
+		ImageIcon imagenFondo = new ImageIcon(new ImageIcon(getClass()
+				.getResource("/imagenes/fondo.png")).getImage());
+		g.drawImage(imagenFondo.getImage(), 0, 0, tamaño.width, tamaño.height,
+				null);
 
 	}
 
 }
-
-
-
