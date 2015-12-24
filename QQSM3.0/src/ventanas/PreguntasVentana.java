@@ -1,7 +1,6 @@
 package ventanas;
 
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -34,11 +33,10 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import org.jfree.ui.RefineryUtilities;
+
 import comodines.C50porciento;
 import comodines.CPublico;
-
-
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,28 +48,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+public class PreguntasVentana extends JFrame implements Runnable {
 
-public class PreguntasVentana extends JFrame implements Runnable{
-
-
-	int numPregunta=0;
+	int numPregunta = 0;
 	private static final long serialVersionUID = 1L;
-	private JLabel lblPregunta, lblRespuesta1,lblRespuesta2,lblRespuesta3,lblRespuesta4,lblFondoRespuesta1,lblFondoRespuesta2,lblFondoRespuesta3,lblFondoRespuesta4,ldinero,labelImagen;
+	private JLabel lblPregunta, lblRespuesta1, lblRespuesta2, lblRespuesta3,
+			lblRespuesta4, lblFondoRespuesta1, lblFondoRespuesta2,
+			lblFondoRespuesta3, lblFondoRespuesta4, ldinero, labelImagen;
 	private boolean haySeleccionada;
 
 	public PreguntasVentana() {
 
-		Thread hilo = new Thread(this); 
+		Thread hilo = new Thread(this);
 		hilo.start();
-		haySeleccionada=false;
-		cargarConfiguracionJuego();	
+		haySeleccionada = false;
+		cargarConfiguracionJuego();
 		getContentPane().setLayout(null);
 		FondoP fondoP = new FondoP();
 		fondoP.setBounds(0, 0, 1194, 765);
 		getContentPane().add(fondoP);
 		fondoP.setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
 		lblFondoRespuesta1 = new JLabel("");
 		lblFondoRespuesta1.setBounds(12, 462, 582, 136);
@@ -89,10 +86,10 @@ public class PreguntasVentana extends JFrame implements Runnable{
 		lblFondoRespuesta4.setBounds(598, 616, 563, 136);
 		lblFondoRespuesta4.setVisible(false);
 
-
 		JLabel c50 = new JLabel("");
 		c50.setBounds(12, 13, 70, 58);
-		c50.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/cincuentaporciento.png")));
+		c50.setIcon(new ImageIcon(PreguntasVentana.class
+				.getResource("/imagenes/cincuentaporciento.png")));
 		c50.setVisible(true);
 		c50.addMouseListener(new MouseAdapter() {
 			@Override
@@ -101,95 +98,160 @@ public class PreguntasVentana extends JFrame implements Runnable{
 				c50.setVisible(false);
 				Random r = new Random();
 				int n = r.nextInt(4) + 1;
-				while (n==Configuracion.preguntasPartida[numPregunta].getPosRespC()){
-					n=r.nextInt(4)+1;
+				while (n == Configuracion.preguntasPartida[numPregunta]
+						.getPosRespC()) {
+					n = r.nextInt(4) + 1;
 				}
-				String resE= Configuracion.respuestaX(n, Configuracion.preguntasPartida[numPregunta]);
-				String resC= Configuracion.preguntasPartida[numPregunta].getResC(); 
-				if(lblRespuesta1.getText().equals(resE)||lblRespuesta1.getText().equals(resC)){
+				String resE = Configuracion.respuestaX(n,
+						Configuracion.preguntasPartida[numPregunta]);
+				String resC = Configuracion.preguntasPartida[numPregunta]
+						.getResC();
+				if (lblRespuesta1.getText().equals(resE)
+						|| lblRespuesta1.getText().equals(resC)) {
 					lblRespuesta1.setVisible(true);
-				}else{
+				} else {
 					lblRespuesta1.setVisible(false);
 				}
-				if(lblRespuesta2.getText().equals(resE)||lblRespuesta2.getText().equals(resC)){
+				if (lblRespuesta2.getText().equals(resE)
+						|| lblRespuesta2.getText().equals(resC)) {
 					lblRespuesta2.setVisible(true);
-				}	else{
+				} else {
 					lblRespuesta2.setVisible(false);
 				}
-				if(lblRespuesta3.getText().equals(resE)||lblRespuesta3.getText().equals(resC)){
+				if (lblRespuesta3.getText().equals(resE)
+						|| lblRespuesta3.getText().equals(resC)) {
 					lblRespuesta3.setVisible(true);
-				}else{
+				} else {
 					lblRespuesta3.setVisible(false);
 				}
-				if(lblRespuesta4.getText().equals(resE)||lblRespuesta4.getText().equals(resC)){
+				if (lblRespuesta4.getText().equals(resE)
+						|| lblRespuesta4.getText().equals(resC)) {
 					lblRespuesta4.setVisible(true);
-				}else{
+				} else {
 					lblRespuesta4.setVisible(false);
 				}
 			}
 		});
 
-
 		JLabel cpublico = new JLabel("");
 		cpublico.setBounds(94, 13, 72, 58);
-		cpublico.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/publico.png")));
+		cpublico.setIcon(new ImageIcon(PreguntasVentana.class
+				.getResource("/imagenes/publico.png")));
 		cpublico.setVisible(true);
 		cpublico.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
 				cpublico.setVisible(false);
-				CPublico p= new CPublico(false);
+				CPublico p = new CPublico(false);
 				p.porcentajes();
-				Random k = new Random();
-				int n = k.nextInt(4) + 1;
-				while (n==Configuracion.preguntasPartida[numPregunta].getPosRespC()){
-					n=k.nextInt(4)+1;
-				}
-				String res1= Configuracion.respuestaX(n, Configuracion.preguntasPartida[numPregunta]);
-				Random l = new Random();
-				int m = l.nextInt(4) + 1;
-				while (m==Configuracion.preguntasPartida[numPregunta].getPosRespC()|| m==n){
-					m=l.nextInt(4)+1;
-				}
-				String res2= Configuracion.respuestaX(m, Configuracion.preguntasPartida[numPregunta]);
-				Random g = new Random();
-				int o = g.nextInt(4) + 1;
-				while (o==Configuracion.preguntasPartida[numPregunta].getPosRespC()||o==m||o==n){
-					o=g.nextInt(4)+1;
-				}
-				String res3= Configuracion.respuestaX(o, Configuracion.preguntasPartida[numPregunta]);
 
-				JOptionPane.showMessageDialog (null, "Resultados de la votación del público: \n"+Configuracion.preguntasPartida[numPregunta].getResC() +" "+ p.a+"%\n"+
-						res1+ " "+p.b+"%\n"+
-						res2+ " "+p.d+"%\n"+
-						res3+" "+p.c+"%", "Comodín del público", JOptionPane.INFORMATION_MESSAGE);
+				int a = 0;
+				int b = 0;
+				int c = 0;
+				int d = 0;
+				String res1=Configuracion.preguntasPartida[numPregunta].getRes1();
+				String res2=Configuracion.preguntasPartida[numPregunta].getRes1();
+				String res3=Configuracion.preguntasPartida[numPregunta].getRes1();
+				String res4=Configuracion.preguntasPartida[numPregunta].getRes1();
+
+				if (Configuracion.preguntasPartida[numPregunta].getPosRespC() == 1) {
+					a = p.a;
+					c = p.b;
+					b = p.d;
+					d = p.c;
+				} else if (Configuracion.preguntasPartida[numPregunta]
+						.getPosRespC() == 2) {
+					b = p.a;
+					a = p.d;
+					c = p.c;
+					d = p.b;
+				} else if (Configuracion.preguntasPartida[numPregunta]
+						.getPosRespC() == 3) {
+					c = p.a;
+					a = p.b;
+					b = p.d;
+					d = p.c;
+				} else if (Configuracion.preguntasPartida[numPregunta]
+						.getPosRespC() == 4) {
+					d = p.a;
+					b = p.c;
+					a = p.b;
+					c = p.d;
+				}
+				// Random k = new Random();
+				// int n = k.nextInt(4) + 1;
+				// while
+				// (n==Configuracion.preguntasPartida[numPregunta].getPosRespC()){
+				// n=k.nextInt(4)+1;
+				// }
+				// String res1= Configuracion.respuestaX(n,
+				// Configuracion.preguntasPartida[numPregunta]);
+				// Random l = new Random();
+				// int m = l.nextInt(4) + 1;
+				// while
+				// (m==Configuracion.preguntasPartida[numPregunta].getPosRespC()||
+				// m==n){
+				// m=l.nextInt(4)+1;
+				// }
+				// String res2= Configuracion.respuestaX(m,
+				// Configuracion.preguntasPartida[numPregunta]);
+				// Random g = new Random();
+				// int o = g.nextInt(4) + 1;
+				// while
+				// (o==Configuracion.preguntasPartida[numPregunta].getPosRespC()||o==m||o==n){
+				// o=g.nextInt(4)+1;
+				// }
+				// String res3= Configuracion.respuestaX(o,
+				// Configuracion.preguntasPartida[numPregunta]);
+
+				GraficoPublico demo = new GraficoPublico("COMODIN DEL PUBLICO",
+						a, b, d, c,res1,res2,res3,res4);
+				demo.pack();
+				RefineryUtilities.centerFrameOnScreen(demo);
+				demo.setVisible(true);
+
+				// JOptionPane.showMessageDialog (null,
+				// "Resultados de la votación del público: \n"+Configuracion.preguntasPartida[numPregunta].getResC()
+				// +" "+ p.a+"%\n"+
+				// res1+ " "+p.b+"%\n"+
+				// res2+ " "+p.d+"%\n"+
+				// res3+" "+p.c+"%", "Comodín del público",
+				// JOptionPane.INFORMATION_MESSAGE);
+				//
 			}
 		});
 
-
 		JLabel cllamada = new JLabel("");
 		cllamada.setBounds(178, 13, 72, 58);
-		cllamada.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/telefono.png")));
+		cllamada.setIcon(new ImageIcon(PreguntasVentana.class
+				.getResource("/imagenes/telefono.png")));
 		cllamada.setVisible(true);
 		cllamada.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
 				cllamada.setVisible(false);
-				String nombre = javax.swing.JOptionPane.showInputDialog("Introduce el nombre de persona a llamar");
-				String numero= javax.swing.JOptionPane.showInputDialog("Introduce el numero de telefono:");
+				String nombre = javax.swing.JOptionPane
+						.showInputDialog("Introduce el nombre de persona a llamar");
+				String numero = javax.swing.JOptionPane
+						.showInputDialog("Introduce el numero de telefono:");
 				Random w = new Random();
 				int n = w.nextInt(4) + 1;
-				while (n==Configuracion.preguntasPartida[numPregunta].getPosRespC()){
-					n=w.nextInt(4)+1;
+				while (n == Configuracion.preguntasPartida[numPregunta]
+						.getPosRespC()) {
+					n = w.nextInt(4) + 1;
 				}
-				String resE= Configuracion.respuestaX(n, Configuracion.preguntasPartida[numPregunta]);
-				String resC= Configuracion.preguntasPartida[numPregunta].getResC();
-				JOptionPane.showMessageDialog (null, "Hola "  +", "+"yo creo que la respuesta correcta es "+resC+" aunque no descartaría del todo "+resE+". Espero haberte podido ayudar, mucha suerte! ");
+				String resE = Configuracion.respuestaX(n,
+						Configuracion.preguntasPartida[numPregunta]);
+				String resC = Configuracion.preguntasPartida[numPregunta]
+						.getResC();
+				JOptionPane.showMessageDialog(null, "Hola " + ", "
+						+ "yo creo que la respuesta correcta es " + resC
+						+ " aunque no descartaría del todo " + resE
+						+ ". Espero haberte podido ayudar, mucha suerte! ");
 			}
 		});
-
 
 		lblPregunta = new JLabel("Pregunta");
 		lblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -202,16 +264,20 @@ public class PreguntasVentana extends JFrame implements Runnable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				if (!haySeleccionada){
-					Hilo1 hilo= new Hilo1();
+				if (!haySeleccionada) {
+					Hilo1 hilo = new Hilo1();
 					hilo.start();
-					Hilo3 hilo3= new Hilo3();
+					Hilo3 hilo3 = new Hilo3();
 					hilo3.start();
-					haySeleccionada=true;
-					lblFondoRespuesta1.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resSeleccionada.png")));
+					haySeleccionada = true;
+					lblFondoRespuesta1.setIcon(new ImageIcon(
+							PreguntasVentana.class
+									.getResource("/imagenes/resSeleccionada.png")));
 					lblFondoRespuesta1.setVisible(true);
 
-					if (lblRespuesta1.getText().equals(Configuracion.preguntasPartida[numPregunta].getResC())){
+					if (lblRespuesta1.getText().equals(
+							Configuracion.preguntasPartida[numPregunta]
+									.getResC())) {
 
 						Thread hiloEspera = new Thread(new Runnable() {
 
@@ -220,9 +286,11 @@ public class PreguntasVentana extends JFrame implements Runnable{
 
 								try {
 									Thread.sleep(5000);
-									Hilo4 hilo4= new Hilo4();
+									Hilo4 hilo4 = new Hilo4();
 									hilo4.start();
-									lblFondoRespuesta1.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+									lblFondoRespuesta1.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resCorrecta.png")));
 									Thread.sleep(2000);
 									cambioPregunta();
 								} catch (InterruptedException e) {
@@ -231,15 +299,17 @@ public class PreguntasVentana extends JFrame implements Runnable{
 							}
 						});
 						hiloEspera.start();
-					}else{
+					} else {
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo2 hilo2= new Hilo2();
+									Hilo2 hilo2 = new Hilo2();
 									hilo2.start();
-									lblFondoRespuesta1.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resincorrecta.png")));
+									lblFondoRespuesta1.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resincorrecta.png")));
 									Thread.sleep(2000);
 									mostrarRespuestaCorrecta();
 									Thread.sleep(3000);
@@ -256,31 +326,37 @@ public class PreguntasVentana extends JFrame implements Runnable{
 		});
 		lblRespuesta1.setFont(new Font("Corbel", Font.PLAIN, 25));
 		lblRespuesta1.setBounds(78, 494, 447, 67);
-		fondoP.add(lblRespuesta1);		
+		fondoP.add(lblRespuesta1);
 		lblRespuesta3 = new JLabel("New label");
 		lblRespuesta3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				if (!haySeleccionada){
-					Hilo1 hilo= new Hilo1();
+				if (!haySeleccionada) {
+					Hilo1 hilo = new Hilo1();
 					hilo.start();
-					Hilo3 hilo3= new Hilo3();
+					Hilo3 hilo3 = new Hilo3();
 					hilo3.start();
-					haySeleccionada=true;
-					lblFondoRespuesta3.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resSeleccionada.png")));
+					haySeleccionada = true;
+					lblFondoRespuesta3.setIcon(new ImageIcon(
+							PreguntasVentana.class
+									.getResource("/imagenes/resSeleccionada.png")));
 					lblFondoRespuesta3.setVisible(true);
 
-					if (lblRespuesta3.getText().equals(Configuracion.preguntasPartida[numPregunta].getResC())){
+					if (lblRespuesta3.getText().equals(
+							Configuracion.preguntasPartida[numPregunta]
+									.getResC())) {
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 
 									Thread.sleep(5000);
-									Hilo4 hilo4= new Hilo4();
+									Hilo4 hilo4 = new Hilo4();
 									hilo4.start();
-									lblFondoRespuesta3.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+									lblFondoRespuesta3.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resCorrecta.png")));
 									Thread.sleep(2000);
 									cambioPregunta();
 								} catch (InterruptedException e) {
@@ -290,15 +366,17 @@ public class PreguntasVentana extends JFrame implements Runnable{
 						});
 						hiloEspera.start();
 
-					}else{
+					} else {
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo2 hilo2= new Hilo2();
+									Hilo2 hilo2 = new Hilo2();
 									hilo2.start();
-									lblFondoRespuesta3.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resincorrecta.png")));
+									lblFondoRespuesta3.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resincorrecta.png")));
 									Thread.sleep(2000);
 									mostrarRespuestaCorrecta();
 									Thread.sleep(3000);
@@ -322,26 +400,32 @@ public class PreguntasVentana extends JFrame implements Runnable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				if (!haySeleccionada){
-					Hilo1 hilo= new Hilo1();
+				if (!haySeleccionada) {
+					Hilo1 hilo = new Hilo1();
 					hilo.start();
-					Hilo3 hilo3= new Hilo3();
+					Hilo3 hilo3 = new Hilo3();
 					hilo3.start();
 					lblFondoRespuesta4.setVisible(true);
-					lblFondoRespuesta4.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resSeleccionada.png")));
+					lblFondoRespuesta4.setIcon(new ImageIcon(
+							PreguntasVentana.class
+									.getResource("/imagenes/resSeleccionada.png")));
 
-					haySeleccionada=true;
+					haySeleccionada = true;
 
-					if (lblRespuesta4.getText().equals(Configuracion.preguntasPartida[numPregunta].getResC())){
+					if (lblRespuesta4.getText().equals(
+							Configuracion.preguntasPartida[numPregunta]
+									.getResC())) {
 
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo4 hilo4= new Hilo4();
+									Hilo4 hilo4 = new Hilo4();
 									hilo4.start();
-									lblFondoRespuesta4.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+									lblFondoRespuesta4.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resCorrecta.png")));
 									Thread.sleep(2000);
 									cambioPregunta();
 								} catch (InterruptedException e) {
@@ -351,20 +435,22 @@ public class PreguntasVentana extends JFrame implements Runnable{
 						});
 						hiloEspera.start();
 
-					}else{
+					} else {
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo2 hilo2= new Hilo2();
+									Hilo2 hilo2 = new Hilo2();
 									hilo2.start();
-									lblFondoRespuesta4.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resincorrecta.png")));
+									lblFondoRespuesta4.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resincorrecta.png")));
 									Thread.sleep(2000);
 									mostrarRespuestaCorrecta();
 									Thread.sleep(3000);
 									dispose();
-									//this.dispose();
+									// this.dispose();
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
@@ -384,26 +470,32 @@ public class PreguntasVentana extends JFrame implements Runnable{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				if (!haySeleccionada){
-					Hilo1 hilo= new Hilo1();
+				if (!haySeleccionada) {
+					Hilo1 hilo = new Hilo1();
 					hilo.start();
-					Hilo3 hilo3= new Hilo3();
+					Hilo3 hilo3 = new Hilo3();
 					hilo3.start();
 
-					haySeleccionada=true;
-					lblFondoRespuesta2.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resSeleccionada.png")));
+					haySeleccionada = true;
+					lblFondoRespuesta2.setIcon(new ImageIcon(
+							PreguntasVentana.class
+									.getResource("/imagenes/resSeleccionada.png")));
 					lblFondoRespuesta2.setVisible(true);
 
-					if (lblRespuesta2.getText().equals(Configuracion.preguntasPartida[numPregunta].getResC())){
+					if (lblRespuesta2.getText().equals(
+							Configuracion.preguntasPartida[numPregunta]
+									.getResC())) {
 
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo4 hilo4= new Hilo4();
+									Hilo4 hilo4 = new Hilo4();
 									hilo4.start();
-									lblFondoRespuesta2.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+									lblFondoRespuesta2.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resCorrecta.png")));
 									Thread.sleep(2000);
 									cambioPregunta();
 								} catch (InterruptedException e) {
@@ -413,15 +505,17 @@ public class PreguntasVentana extends JFrame implements Runnable{
 						});
 						hiloEspera.start();
 
-					}else{
+					} else {
 						Thread hiloEspera = new Thread(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									Thread.sleep(5000);
-									Hilo2 hilo2= new Hilo2();
+									Hilo2 hilo2 = new Hilo2();
 									hilo2.start();
-									lblFondoRespuesta2.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resincorrecta.png")));
+									lblFondoRespuesta2.setIcon(new ImageIcon(
+											PreguntasVentana.class
+													.getResource("/imagenes/resincorrecta.png")));
 									Thread.sleep(2000);
 									mostrarRespuestaCorrecta();
 									Thread.sleep(3000);
@@ -456,14 +550,13 @@ public class PreguntasVentana extends JFrame implements Runnable{
 		fondoP.add(cllamada);
 		fondoP.add(ldinero);
 
-		////////////////imagenDePreguntas
+		// //////////////imagenDePreguntas
 		labelImagen = new JLabel("New label");
 		labelImagen.setBounds(366, 13, 502, 200);
 		fondoP.add(labelImagen);
 
-
 		cargarPregunta();
-		this.setSize(1200,800);
+		this.setSize(1200, 800);
 		this.setResizable(false);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		// Se obtienen las dimensiones en pixels de la ventana.
@@ -472,33 +565,36 @@ public class PreguntasVentana extends JFrame implements Runnable{
 		setLocation((pantalla.width - ventana.width) / 2,
 				(pantalla.height - ventana.height) / 2);
 
-
 		this.setVisible(true);
 	}
 
-
-
 	private void cargarPregunta() {
-		Configuracion conf = new Configuracion(); 
+		Configuracion conf = new Configuracion();
 		if (Configuracion.preguntasPartida[numPregunta] instanceof PreguntaTexto) {
 			labelImagen.setVisible(false);
 		}
-		if (Configuracion.preguntasPartida[numPregunta] instanceof PreguntaImagen){
+		if (Configuracion.preguntasPartida[numPregunta] instanceof PreguntaImagen) {
 			labelImagen.setVisible(true);
-			labelImagen.setIcon(new ImageIcon( ((PreguntaImagen) conf.preguntasPartida[numPregunta]).getImagen()));
+			labelImagen.setIcon(new ImageIcon(
+					((PreguntaImagen) conf.preguntasPartida[numPregunta])
+							.getImagen()));
 		}
-		lblPregunta.setText(Configuracion.preguntasPartida[numPregunta].getTextoPregunta());
-		lblRespuesta1.setText(Configuracion.preguntasPartida[numPregunta].getRes1());
-		lblRespuesta2.setText(Configuracion.preguntasPartida[numPregunta].getRes2());
-		lblRespuesta3.setText(Configuracion.preguntasPartida[numPregunta].getRes3());
-		lblRespuesta4.setText(Configuracion.preguntasPartida[numPregunta].getRes4());
-		int euros=Configuracion.euros[numPregunta];
+		lblPregunta.setText(Configuracion.preguntasPartida[numPregunta]
+				.getTextoPregunta());
+		lblRespuesta1.setText(Configuracion.preguntasPartida[numPregunta]
+				.getRes1());
+		lblRespuesta2.setText(Configuracion.preguntasPartida[numPregunta]
+				.getRes2());
+		lblRespuesta3.setText(Configuracion.preguntasPartida[numPregunta]
+				.getRes3());
+		lblRespuesta4.setText(Configuracion.preguntasPartida[numPregunta]
+				.getRes4());
+		int euros = Configuracion.euros[numPregunta];
 		String scadena = "";
 		scadena = String.valueOf(euros);
-		scadena= Integer.toString(euros)+"€";
+		scadena = Integer.toString(euros) + "€";
 		ldinero.setText(scadena);
 	}
-
 
 	private void cargarConfiguracionJuego() {
 		Configuracion.init();
@@ -510,16 +606,20 @@ public class PreguntasVentana extends JFrame implements Runnable{
 
 	private void cambioPregunta() {
 
-		haySeleccionada=false;
+		haySeleccionada = false;
 		numPregunta++;
-		if (numPregunta==5||numPregunta==10) {
-			String[] options = new String[] {"Seguir jugando", "Prefiero plantarme"};
-			if(JOptionPane.showConfirmDialog(this, "¿Sequir jugando?", "¿Qué desea hacer?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.NO_OPTION){
+		if (numPregunta == 5 || numPregunta == 10) {
+			String[] options = new String[] { "Seguir jugando",
+					"Prefiero plantarme" };
+			if (JOptionPane.showConfirmDialog(this, "¿Sequir jugando?",
+					"¿Qué desea hacer?", JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE) == JOptionPane.NO_OPTION) {
 				this.dispose();
 			}
 		}
-		if(numPregunta==15){
-			Premio p= new Premio();
+		if (numPregunta == 15) {
+			this.dispose();
+			Premio p = new Premio();
 		}
 		lblFondoRespuesta1.setVisible(false);
 		lblFondoRespuesta2.setVisible(false);
@@ -531,37 +631,38 @@ public class PreguntasVentana extends JFrame implements Runnable{
 		lblRespuesta4.setVisible(true);
 
 		cargarPregunta();
-		Thread hilo = new Thread(this); 
+		Thread hilo = new Thread(this);
 		hilo.start();
 	}
 
-
 	private void mostrarRespuestaCorrecta() {
-		String resC= Configuracion.preguntasPartida[numPregunta].getResC();
-		if (resC.equals(lblRespuesta1.getText())){
-			lblFondoRespuesta1.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+		String resC = Configuracion.preguntasPartida[numPregunta].getResC();
+		if (resC.equals(lblRespuesta1.getText())) {
+			lblFondoRespuesta1.setIcon(new ImageIcon(PreguntasVentana.class
+					.getResource("/imagenes/resCorrecta.png")));
 			lblFondoRespuesta1.setVisible(true);
 		}
-		if (resC.equals(lblRespuesta2.getText())){
-			lblFondoRespuesta2.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+		if (resC.equals(lblRespuesta2.getText())) {
+			lblFondoRespuesta2.setIcon(new ImageIcon(PreguntasVentana.class
+					.getResource("/imagenes/resCorrecta.png")));
 			lblFondoRespuesta2.setVisible(true);
 		}
-		if (resC.equals(lblRespuesta3.getText())){
-			lblFondoRespuesta3.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+		if (resC.equals(lblRespuesta3.getText())) {
+			lblFondoRespuesta3.setIcon(new ImageIcon(PreguntasVentana.class
+					.getResource("/imagenes/resCorrecta.png")));
 			lblFondoRespuesta3.setVisible(true);
 		}
-		if (resC.equals(lblRespuesta4.getText())){
-			lblFondoRespuesta4.setIcon(new ImageIcon(PreguntasVentana.class.getResource("/imagenes/resCorrecta.png")));
+		if (resC.equals(lblRespuesta4.getText())) {
+			lblFondoRespuesta4.setIcon(new ImageIcon(PreguntasVentana.class
+					.getResource("/imagenes/resCorrecta.png")));
 			lblFondoRespuesta4.setVisible(true);
 		}
 
 	}
 
-
 	public static void main(String[] args) {
-		PreguntasVentana f= new PreguntasVentana();
+		PreguntasVentana f = new PreguntasVentana();
 	}
-
 
 	enum Position {
 		LEFT, RIGHT, NORMAL
@@ -571,314 +672,313 @@ public class PreguntasVentana extends JFrame implements Runnable{
 	public void run() {
 		int EXTERNAL_BUFFER_SIZE = 524288;
 		String filename = "./musica/pregunta.wav";
-		Position curPosition = Position.NORMAL; 
+		Position curPosition = Position.NORMAL;
 		File soundFile = new File(filename);
-		if (!soundFile.exists()) { 
+		if (!soundFile.exists()) {
 			System.err.println("Wave file not found: " + filename);
 			return;
-		} 
+		}
 		AudioInputStream audioInputStream = null;
-		try { 
+		try {
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		} catch (UnsupportedAudioFileException e1) { 
+		} catch (UnsupportedAudioFileException e1) {
 			e1.printStackTrace();
 			return;
-		} catch (IOException e1) { 
+		} catch (IOException e1) {
 			e1.printStackTrace();
 			return;
-		} 
+		}
 		AudioFormat format = audioInputStream.getFormat();
 		SourceDataLine auline = null;
 		DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-		try { 
+		try {
 			auline = (SourceDataLine) AudioSystem.getLine(info);
 			auline.open(format);
-		} catch (LineUnavailableException e) { 
+		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 			return;
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
-		} 
-		if (auline.isControlSupported(FloatControl.Type.PAN)) { 
+		}
+		if (auline.isControlSupported(FloatControl.Type.PAN)) {
 			FloatControl pan = (FloatControl) auline
 					.getControl(FloatControl.Type.PAN);
-			if (curPosition == Position.RIGHT) 
+			if (curPosition == Position.RIGHT)
 				pan.setValue(1.0f);
-			else if (curPosition == Position.LEFT) 
+			else if (curPosition == Position.LEFT)
 				pan.setValue(-1.0f);
-		} 
+		}
 		auline.start();
 		int nBytesRead = 0;
 		byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-		try { 
-			while (nBytesRead != -1) { 
+		try {
+			while (nBytesRead != -1) {
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
-				if (nBytesRead >= 0) 
+				if (nBytesRead >= 0)
 					auline.write(abData, 0, nBytesRead);
-			} 
-		} catch (IOException e) { 
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 			return;
-		} finally { 
+		} finally {
 			auline.drain();
 			auline.close();
-		} 
+		}
 	}
 }
 
-
-
 class Hilo1 extends Thread {
 
-	public void run(){int EXTERNAL_BUFFER_SIZE = 524288;
-	String filename = "./musica/seleccionada.wav";
-	Position curPosition = Position.NORMAL; 
-	File soundFile = new File(filename);
-	if (!soundFile.exists()) { 
-		System.err.println("Wave file not found: " + filename);
-		return;
-	} 
-	AudioInputStream audioInputStream = null;
-	try { 
-		audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-	} catch (UnsupportedAudioFileException e1) { 
-		e1.printStackTrace();
-		return;
-	} catch (IOException e1) { 
-		e1.printStackTrace();
-		return;
-	} 
-	AudioFormat format = audioInputStream.getFormat();
-	SourceDataLine auline = null;
-	DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-	try { 
-		auline = (SourceDataLine) AudioSystem.getLine(info);
-		auline.open(format);
-	} catch (LineUnavailableException e) { 
-		e.printStackTrace();
-		return;
-	} catch (Exception e) { 
-		e.printStackTrace();
-		return;
-	} 
-	if (auline.isControlSupported(FloatControl.Type.PAN)) { 
-		FloatControl pan = (FloatControl) auline
-				.getControl(FloatControl.Type.PAN);
-		if (curPosition == Position.RIGHT) 
-			pan.setValue(1.0f);
-		else if (curPosition == Position.LEFT) 
-			pan.setValue(-1.0f);
-	} 
-	auline.start();
-	int nBytesRead = 0;
-	byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-	try { 
-		while (nBytesRead != -1) { 
-			nBytesRead = audioInputStream.read(abData, 0, abData.length);
-			if (nBytesRead >= 0) 
-				auline.write(abData, 0, nBytesRead);
-		} 
-	} catch (IOException e) { 
-		e.printStackTrace();
-		return;
-	} finally { 
-		auline.drain();
-		auline.close();
-	} 
+	public void run() {
+		int EXTERNAL_BUFFER_SIZE = 524288;
+		String filename = "./musica/seleccionada.wav";
+		Position curPosition = Position.NORMAL;
+		File soundFile = new File(filename);
+		if (!soundFile.exists()) {
+			System.err.println("Wave file not found: " + filename);
+			return;
+		}
+		AudioInputStream audioInputStream = null;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+			return;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return;
+		}
+		AudioFormat format = audioInputStream.getFormat();
+		SourceDataLine auline = null;
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+		try {
+			auline = (SourceDataLine) AudioSystem.getLine(info);
+			auline.open(format);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		if (auline.isControlSupported(FloatControl.Type.PAN)) {
+			FloatControl pan = (FloatControl) auline
+					.getControl(FloatControl.Type.PAN);
+			if (curPosition == Position.RIGHT)
+				pan.setValue(1.0f);
+			else if (curPosition == Position.LEFT)
+				pan.setValue(-1.0f);
+		}
+		auline.start();
+		int nBytesRead = 0;
+		byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+		try {
+			while (nBytesRead != -1) {
+				nBytesRead = audioInputStream.read(abData, 0, abData.length);
+				if (nBytesRead >= 0)
+					auline.write(abData, 0, nBytesRead);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		} finally {
+			auline.drain();
+			auline.close();
+		}
 	}
 }
 
 class Hilo2 extends Thread {
 
-	public void run(){int EXTERNAL_BUFFER_SIZE = 524288;
-	String filename = "./musica/fallo.wav";
-	Position curPosition = Position.NORMAL; 
-	File soundFile = new File(filename);
-	if (!soundFile.exists()) { 
-		System.err.println("Wave file not found: " + filename);
-		return;
-	} 
-	AudioInputStream audioInputStream = null;
-	try { 
-		audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-	} catch (UnsupportedAudioFileException e1) { 
-		e1.printStackTrace();
-		return;
-	} catch (IOException e1) { 
-		e1.printStackTrace();
-		return;
-	} 
-	AudioFormat format = audioInputStream.getFormat();
-	SourceDataLine auline = null;
-	DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-	try { 
-		auline = (SourceDataLine) AudioSystem.getLine(info);
-		auline.open(format);
-	} catch (LineUnavailableException e) { 
-		e.printStackTrace();
-		return;
-	} catch (Exception e) { 
-		e.printStackTrace();
-		return;
-	} 
-	if (auline.isControlSupported(FloatControl.Type.PAN)) { 
-		FloatControl pan = (FloatControl) auline
-				.getControl(FloatControl.Type.PAN);
-		if (curPosition == Position.RIGHT) 
-			pan.setValue(1.0f);
-		else if (curPosition == Position.LEFT) 
-			pan.setValue(-1.0f);
-	} 
-	auline.start();
-	int nBytesRead = 0;
-	byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-	try { 
-		while (nBytesRead != -1) { 
-			nBytesRead = audioInputStream.read(abData, 0, abData.length);
-			if (nBytesRead >= 0) 
-				auline.write(abData, 0, nBytesRead);
-		} 
-	} catch (IOException e) { 
-		e.printStackTrace();
-		return;
-	} finally { 
-		auline.drain();
-		auline.close();
-	} 
+	public void run() {
+		int EXTERNAL_BUFFER_SIZE = 524288;
+		String filename = "./musica/fallo.wav";
+		Position curPosition = Position.NORMAL;
+		File soundFile = new File(filename);
+		if (!soundFile.exists()) {
+			System.err.println("Wave file not found: " + filename);
+			return;
+		}
+		AudioInputStream audioInputStream = null;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+			return;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return;
+		}
+		AudioFormat format = audioInputStream.getFormat();
+		SourceDataLine auline = null;
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+		try {
+			auline = (SourceDataLine) AudioSystem.getLine(info);
+			auline.open(format);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		if (auline.isControlSupported(FloatControl.Type.PAN)) {
+			FloatControl pan = (FloatControl) auline
+					.getControl(FloatControl.Type.PAN);
+			if (curPosition == Position.RIGHT)
+				pan.setValue(1.0f);
+			else if (curPosition == Position.LEFT)
+				pan.setValue(-1.0f);
+		}
+		auline.start();
+		int nBytesRead = 0;
+		byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+		try {
+			while (nBytesRead != -1) {
+				nBytesRead = audioInputStream.read(abData, 0, abData.length);
+				if (nBytesRead >= 0)
+					auline.write(abData, 0, nBytesRead);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		} finally {
+			auline.drain();
+			auline.close();
+		}
 	}
 }
-
 
 class Hilo3 extends Thread {
 
-	public void run(){
+	public void run() {
 		int EXTERNAL_BUFFER_SIZE = 524288;
 		String filename = "./musica/tension.wav";
-		Position curPosition = Position.NORMAL; 
+		Position curPosition = Position.NORMAL;
 		File soundFile = new File(filename);
-		if (!soundFile.exists()) { 
+		if (!soundFile.exists()) {
 			System.err.println("Wave file not found: " + filename);
 			return;
-		} 
+		}
 		AudioInputStream audioInputStream = null;
-		try { 
+		try {
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		} catch (UnsupportedAudioFileException e1) { 
+		} catch (UnsupportedAudioFileException e1) {
 			e1.printStackTrace();
 			return;
-		} catch (IOException e1) { 
+		} catch (IOException e1) {
 			e1.printStackTrace();
 			return;
-		} 
+		}
 		AudioFormat format = audioInputStream.getFormat();
 		SourceDataLine auline = null;
 		DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-		try { 
+		try {
 			auline = (SourceDataLine) AudioSystem.getLine(info);
 			auline.open(format);
-		} catch (LineUnavailableException e) { 
+		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 			return;
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
-		} 
-		if (auline.isControlSupported(FloatControl.Type.PAN)) { 
+		}
+		if (auline.isControlSupported(FloatControl.Type.PAN)) {
 			FloatControl pan = (FloatControl) auline
 					.getControl(FloatControl.Type.PAN);
-			if (curPosition == Position.RIGHT) 
+			if (curPosition == Position.RIGHT)
 				pan.setValue(1.0f);
-			else if (curPosition == Position.LEFT) 
+			else if (curPosition == Position.LEFT)
 				pan.setValue(-1.0f);
-		} 
+		}
 		auline.start();
 		int nBytesRead = 0;
 		byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-		try { 
-			while (nBytesRead != -1) { 
+		try {
+			while (nBytesRead != -1) {
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
-				if (nBytesRead >= 0) 
+				if (nBytesRead >= 0)
 					auline.write(abData, 0, nBytesRead);
-			} 
-		} catch (IOException e) { 
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 			return;
-		} finally { 
+		} finally {
 			auline.drain();
 			auline.close();
-		} 
+		}
 	}
 }
 
-
 class Hilo4 extends Thread {
 
-	public void run(){
+	public void run() {
 		int EXTERNAL_BUFFER_SIZE = 524288;
 		String filename = "./musica/acierto.wav";
-		Position curPosition = Position.NORMAL; 
+		Position curPosition = Position.NORMAL;
 		File soundFile = new File(filename);
-		if (!soundFile.exists()) { 
+		if (!soundFile.exists()) {
 			System.err.println("Wave file not found: " + filename);
 			return;
-		} 
+		}
 		AudioInputStream audioInputStream = null;
-		try { 
+		try {
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		} catch (UnsupportedAudioFileException e1) { 
+		} catch (UnsupportedAudioFileException e1) {
 			e1.printStackTrace();
 			return;
-		} catch (IOException e1) { 
+		} catch (IOException e1) {
 			e1.printStackTrace();
 			return;
-		} 
+		}
 		AudioFormat format = audioInputStream.getFormat();
 		SourceDataLine auline = null;
 		DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-		try { 
+		try {
 			auline = (SourceDataLine) AudioSystem.getLine(info);
 			auline.open(format);
-		} catch (LineUnavailableException e) { 
+		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 			return;
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
-		} 
-		if (auline.isControlSupported(FloatControl.Type.PAN)) { 
+		}
+		if (auline.isControlSupported(FloatControl.Type.PAN)) {
 			FloatControl pan = (FloatControl) auline
 					.getControl(FloatControl.Type.PAN);
-			if (curPosition == Position.RIGHT) 
+			if (curPosition == Position.RIGHT)
 				pan.setValue(1.0f);
-			else if (curPosition == Position.LEFT) 
+			else if (curPosition == Position.LEFT)
 				pan.setValue(-1.0f);
-		} 
+		}
 		auline.start();
 		int nBytesRead = 0;
 		byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-		try { 
-			while (nBytesRead != -1) { 
+		try {
+			while (nBytesRead != -1) {
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
-				if (nBytesRead >= 0) 
+				if (nBytesRead >= 0)
 					auline.write(abData, 0, nBytesRead);
-			} 
-		} catch (IOException e) { 
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 			return;
-		} finally { 
+		} finally {
 			auline.drain();
 			auline.close();
-		} 
+		}
 	}
 }
 
 class FondoP extends JPanel {
 
-
-	public void paintComponent (Graphics g){
-		Dimension tamaño= getSize();
-		ImageIcon imagenFondo= new ImageIcon (new ImageIcon(getClass().getResource("/imagenes/panel.png")).getImage());
-		g.drawImage(imagenFondo.getImage(), 0, 0, tamaño.width, tamaño.height, null);
+	public void paintComponent(Graphics g) {
+		Dimension tamaño = getSize();
+		ImageIcon imagenFondo = new ImageIcon(new ImageIcon(getClass()
+				.getResource("/imagenes/panel.png")).getImage());
+		g.drawImage(imagenFondo.getImage(), 0, 0, tamaño.width, tamaño.height,
+				null);
 	}
 }

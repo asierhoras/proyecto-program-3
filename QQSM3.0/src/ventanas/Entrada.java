@@ -45,6 +45,7 @@ public class Entrada extends JFrame implements Runnable{
 
 
 	private JButton bEntrar;
+	public boolean sonando=true;
 
 
 	public Entrada(){
@@ -100,6 +101,27 @@ public class Entrada extends JFrame implements Runnable{
 			}
 		});
 		fondo.add(bEntrar);
+		
+		JButton btnmusica = new JButton("");
+		btnmusica.setForeground(new Color(0, 255, 255));
+		btnmusica.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent arg0) {
+				if (sonando) {
+					hilo.suspend();;
+					btnmusica.setIcon(new ImageIcon(Entrada.class.getResource("/imagenes/turnon.png")));
+					sonando=false;
+				} else if (!sonando) {
+					hilo.resume();
+					btnmusica.setIcon(new ImageIcon(Entrada.class.getResource("/imagenes/turnoff.png")));
+					sonando=true;
+				}
+				
+			}
+		});
+		btnmusica.setIcon(new ImageIcon(Entrada.class.getResource("/imagenes/turnoff.png")));
+		btnmusica.setBounds(1107, 705, 44, 35);
+		fondo.add(btnmusica);
 		this.setSize(1200,800);
 		this.setResizable(false);
 

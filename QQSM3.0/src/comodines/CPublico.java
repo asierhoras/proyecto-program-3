@@ -26,8 +26,8 @@ public class CPublico extends Comodin {
 	 */
 	public void porcentajes() {
 		Random R = new Random();
-		this.a = R.nextInt(30) + 50;
-		this.b = R.nextInt(20) + 1;
+		this.a = R.nextInt(20) + 40;
+		this.b = R.nextInt(10) + 5;
 		this.c = 90 - (a + b);
 		this.d = 100 - (a+b+c);
 	}
@@ -82,6 +82,9 @@ public class CPublico extends Comodin {
 				"Donosti", "Vitoria", "Barcelona", 1);
 		n.porcentajes();
 		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		System.out.println(d);
 		n.utilizarComodin(pregunta);
 	}
 
